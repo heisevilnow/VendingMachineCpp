@@ -8,7 +8,6 @@
 #include <conio.h>
 #include "includes/MENU_BANHANG.h"
 #include "includes/quanliMENU.h"
-//test
 using namespace std;
 void gotoxy(int x, int y)						//su dung toa do cho cac doi tuong.
 {
