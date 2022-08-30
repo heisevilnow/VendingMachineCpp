@@ -82,7 +82,7 @@ void WELCOME()
 	Sleep(500);
 	system("cls");
 }
-void TILTE_VENDING()
+/* void TILTE_VENDING()
 {
 	cout << R"(
  .----------------.  .----------------.  .-----------------. .----------------.  .----------------.  .-----------------. .----------------.
@@ -96,7 +96,7 @@ void TILTE_VENDING()
 | |              | || |              | || |              | || |              | || |              | || |              | || |              | |
 | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------' )"<<endl;
-}
+} */
 void GHI_FILE(ofstream& fileout, MENU listmenu[], int n)
 {
 	int dem = 0;
@@ -158,11 +158,11 @@ int main()
 	int k;
 	int s = 0;
 	int N;
-	WELCOME();
+	//WELCOME();
 	do
 	{
 		TextColor(27);
-		TILTE_VENDING();
+		//TILTE_VENDING();
 		TextColor(3);
 		gotoxy(65, 14); cout << "1.MENU" << endl;
 		TextColor(4);
@@ -293,166 +293,173 @@ int main()
 		}
 		case 2:
 		{
-			bool error = 0;
+			char error = 0;
 			string pw;
 			do
 			{
 				cout << "VUI LONG NHAP MAT KHAU: ";
-				cin.ignore();
+				fflush(stdin);
+				//cin.ignore();
 				getline(cin, pw);
 				if (pw == password) {
 					error = 0;
 				}
 				else {
-					error = 1;
-				}
-			} while (error == 1);
-
-			menu = &qlmenu;
-			TextColor(4);
-			menu->XINCHAO();
-			TextColor(3);
-			cout << "1.THEM" << endl;
-			TextColor(26);
-			cout << "2.XOA" << endl;
-			TextColor(29);
-			cout << "3.CAP NHAT SO LUONG" << endl;
-			TextColor(23);
-			cout << "4.DOI MAT KHAU" << endl;
-			TextColor(7);
-			cout << "\t\tMOI BAN CHON CHE DO" << endl;
-			cout << "---------------------------------------------------------" << endl;
-			int banchon;
-			cin >> banchon;
-			switch (banchon) {
-			case 1:
-			{
-				qlmenu.XUAT_MENU(listmenu, n);
-				cout << "THEM 1 LOAI NUOC MA BAN MUON" << endl;
-				string tenmon;
-				cin.ignore();
-				cout << "NHAP TEN NUOC: ";
-				int time = 0;
-				while (true)
-				{
-					if (!_kbhit())
-					{
-						Sleep(7);
-						time++;
-						if (time == 700)
-						{
-							system("cls");
-							WELCOME();
-							break;
-						}
-					}
-					if (_kbhit())
-					{
-						getline(cin, tenmon);
-						MENU menuThem = qlmenu.NHAP_INFO_LOAI_NUOC(tenmon);
-						int vt;
-						cout << "NHAP VI TRI BAN MUON THEM: ";
-						cin >> vt;
-						cout << "WAITING...";
-						Sleep(1000);
+					error++;
+					if(error==3){
+						cout << "BAN DA NHAP SAI QUA NHIEU LAN";
+						Sleep(3000);
 						system("cls");
-						qlmenu.THEM_1_LOAI_NUOC(listmenu, n, vt, menuThem);
-						ofstream fileout;
-						fileout.open(".\\DRINK.txt", ios_base::out);
-						GHI_FILE(fileout, listmenu, n);
-						TextColor(13);
-						cout << "\t  MENU SAU KHI THEM 1 LOAI NUOC MOI" << endl;
-						TextColor(7);
-						qlmenu.XUAT_MENU(listmenu, n);
-						Sleep(4000);
-						system("cls");
-						cin.ignore();
 						break;
 					}
 				}
-				break;
-			}
-			case 2:
-			{
-				qlmenu.XUAT_MENU(listmenu, n);
-				cout << "XOA 1 LOAI NUOC MA BAN MUON" << endl;
-				int vitri;
-				cout << "NHAP VI TRI MUON XOA: ";
-				int time = 0;
-				while (true)
+			} while (error!=0);
+			if(error == 0){
+				menu = &qlmenu;
+				TextColor(4);
+				menu->XINCHAO();
+				TextColor(3);
+				cout << "1.THEM" << endl;
+				TextColor(26);
+				cout << "2.XOA" << endl;
+				TextColor(29);
+				cout << "3.CAP NHAT SO LUONG" << endl;
+				TextColor(36);
+				cout << "4.DOI MAT KHAU" << endl;
+				TextColor(7);
+				cout << "\t\tMOI BAN CHON CHE DO" << endl;
+				cout << "---------------------------------------------------------" << endl;
+				int banchon;
+				cin >> banchon;
+				switch (banchon) {
+				case 1:
 				{
-					if (!_kbhit())
+					qlmenu.XUAT_MENU(listmenu, n);
+					cout << "THEM 1 LOAI NUOC MA BAN MUON" << endl;
+					string tenmon;
+					cin.ignore();
+					cout << "NHAP TEN NUOC: ";
+					int time = 0;
+					while (true)
 					{
-						Sleep(7);
-						time++;
-						if (time == 700)
+						if (!_kbhit())
 						{
+							Sleep(7);
+							time++;
+							if (time == 700)
+							{
+								system("cls");
+								WELCOME();
+								break;
+							}
+						}
+						if (_kbhit())
+						{
+							getline(cin, tenmon);
+							MENU menuThem = qlmenu.NHAP_INFO_LOAI_NUOC(tenmon);
+							int vt;
+							cout << "NHAP VI TRI BAN MUON THEM: ";
+							cin >> vt;
+							cout << "WAITING...";
+							Sleep(1000);
 							system("cls");
-							WELCOME();
-
+							qlmenu.THEM_1_LOAI_NUOC(listmenu, n, vt, menuThem);
+							ofstream fileout;
+							fileout.open(".\\DRINK.txt", ios_base::out);
+							GHI_FILE(fileout, listmenu, n);
+							TextColor(13);
+							cout << "\t  MENU SAU KHI THEM 1 LOAI NUOC MOI" << endl;
+							TextColor(7);
+							qlmenu.XUAT_MENU(listmenu, n);
+							Sleep(4000);
+							system("cls");
+							cin.ignore();
 							break;
 						}
 					}
-					if (_kbhit())
-					{
-						cin >> vitri;
-						cout << "WAITING...";
-						Sleep(1000);
-						system("cls");
-						qlmenu.XOA_1_LOAI_NUOC(listmenu, n, vitri);
-						ofstream fileout;
-						fileout.open(".\\DRINK.txt", ios_base::out);
-						GHI_FILE(fileout, listmenu, n);
-						TextColor(13);
-						cout << "\t\tMENU SAU KHI XOA" << endl;
-						TextColor(7);
-						qlmenu.XUAT_MENU(listmenu, n);
-						Sleep(4000);
-						system("cls");
-						cin.ignore();
-						break;
-					}
+					break;
 				}
-				break;
-			}
-			case 3:
-			{
-				qlmenu.XUAT_MENU(listmenu, n);
-				cout << "MOI BAN NHAP SO: ";
-				cin >> N;
-				qlmenu.CAPNHAT_SL(listmenu, n, N);
-				ofstream fileout;
-				fileout.open(".\\DRINK.txt", ios_base::out);
-				GHI_FILE(fileout, listmenu, n);
-				cin.ignore();
-				break;
-			}
-			case 4:
-			{
-				bool compare = 0;
-				do
+				case 2:
 				{
-					cin.ignore();
-					cout << "NHAP MAT KHAU MOI" << endl;
-					cin.ignore();
-					getline(cin, password);
-					string tam;
-					cout << "NHAP LAI MAT KHAU MOI" << endl;
-					cin.ignore();
-					getline(cin, tam);
-					if (tam == password) {
-						cout << "DOI MAT KHAU THANH CONG" << endl;
-						compare = 1;
+					qlmenu.XUAT_MENU(listmenu, n);
+					cout << "XOA 1 LOAI NUOC MA BAN MUON" << endl;
+					int vitri;
+					cout << "NHAP VI TRI MUON XOA: ";
+					int time = 0;
+					while (true)
+					{
+						if (!_kbhit())
+						{
+							Sleep(7);
+							time++;
+							if (time == 700)
+							{
+								system("cls");
+								WELCOME();
 
-						system("cls");
+								break;
+							}
+						}
+						if (_kbhit())
+						{
+							cin >> vitri;
+							cout << "WAITING...";
+							Sleep(1000);
+							system("cls");
+							qlmenu.XOA_1_LOAI_NUOC(listmenu, n, vitri);
+							ofstream fileout;
+							fileout.open(".\\DRINK.txt", ios_base::out);
+							GHI_FILE(fileout, listmenu, n);
+							TextColor(13);
+							cout << "\t\tMENU SAU KHI XOA" << endl;
+							TextColor(7);
+							qlmenu.XUAT_MENU(listmenu, n);
+							Sleep(4000);
+							system("cls");
+							cin.ignore();
+							break;
+						}
 					}
-					else {
-						cout << "DOI MAT KHAU THAT BAI" << endl;
-						compare = 0;
-					}
-				} while (compare==0);
-				break;
-			}
+					break;
+				}
+				case 3:
+				{
+					qlmenu.XUAT_MENU(listmenu, n);
+					cout << "MOI BAN NHAP SO: ";
+					cin >> N;
+					qlmenu.CAPNHAT_SL(listmenu, n, N);
+					ofstream fileout;
+					fileout.open(".\\DRINK.txt", ios_base::out);
+					GHI_FILE(fileout, listmenu, n);
+					cin.ignore();
+					break;
+				}
+				case 4:
+				{
+					bool compare = 0;
+					do
+					{
+						fflush(stdin);
+						cout << "NHAP MAT KHAU MOI" << endl;
+						getline(cin, password);
+						string tam;
+						fflush(stdin);
+						cout << "NHAP LAI MAT KHAU MOI" << endl;
+						getline(cin, tam);
+						if (tam == password) {
+							cout << "DOI MAT KHAU THANH CONG";
+							compare = 1;
+							Sleep(3000);
+							system("cls");
+						}
+						else {
+							cout << "DOI MAT KHAU THAT BAI";
+							compare = 0;
+						}
+					} while (compare==0);
+					break;
+				}
+				}
 			}
 			break;
 		}
