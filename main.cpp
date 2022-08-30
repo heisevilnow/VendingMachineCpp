@@ -171,7 +171,7 @@ int main()
 		TextColor(26);
 		gotoxy(65, 16); cout << "3.THOAT" << endl;
 		TextColor(7);
-		gotoxy(43, 17); cout << "---------------------------------------------------------" << endl;
+		gotoxy(43, 17); cout << "----------------------------------------------------------" << endl;
 		gotoxy(59, 18); cout << "MOI BAN CHON CHE DO: ";
 		int key;
 		cin >> key;
